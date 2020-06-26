@@ -1,8 +1,0 @@
-certifi
-cffi
-cryptography
-decorator
-pycparser
-python-telegram-bot
-six
-tornado
