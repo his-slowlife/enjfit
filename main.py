@@ -87,6 +87,6 @@ def callback_inline(call):
         print(repr(e))
 
 
-print('test')
+print('test1')
 #RUN
 bot.polling(none_stop=True)
