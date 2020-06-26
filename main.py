@@ -85,9 +85,5 @@ def callback_inline(call):
 
     except Exception as e:
         print(repr(e))
-print(finish)
-
-
-print('test1')
 #RUN
 bot.polling(none_stop=True)
