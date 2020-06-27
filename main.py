@@ -2,9 +2,13 @@ import telebot
 
 from telebot import types
 
-# bot = telebot.TeleBot('1216448489:AAGa0aixNFa6R9AvpuYF0wkTTlTOauHKYzg') # Sergei's token
+import os
+from flask import Flask, request
+
+bot = telebot.TeleBot('1216448489:AAGa0aixNFa6R9AvpuYF0wkTTlTOauHKYzg') # Sergei's token
 # bot = telebot.TeleBot('1281817942:AAE24DX-h9ZunkdS4ZGJvSfxUY5rdqzwdgI') # Oleh's token
-bot = telebot.TeleBot('1216448489:AAGa0aixNFa6R9AvpuYF0wkTTlTOauHKYzg')
+
+server = Flask(__name__)
 
 KEYBOARDS = {
   'main': [
@@ -85,5 +89,19 @@ def callback_inline(call):
 
     except Exception as e:
         print(repr(e))
-#RUN
-bot.polling(none_stop=True) 
+
+@server.route('/' + bot.token, methods=['POST'])
+def getMessage():
+    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+    return "!", 200
+
+@server.route("/")
+def webhook():
+    bot.remove_webhook()
+    bot.set_webhook(url='https://test-bot-proj.herokuapp.com/' + bot.token)
+    return "!", 200
+
+
+if __name__ == '__main__':
+    server.debug = True
+    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000))) 
