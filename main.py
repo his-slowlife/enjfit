@@ -98,7 +98,7 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url='https://test-bot-proj.herokuapp.com/' + bot.token)
+    bot.set_webhook(url='https://enjfit.herokuapp.com/' + bot.token)
     return "!", 200
 
 
