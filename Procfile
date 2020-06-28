@@ -1,1 +1,1 @@
-web gunicorn enjfit:app
+web: python main.py
