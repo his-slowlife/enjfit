@@ -1,1 +1,1 @@
-web: gunicorn enjfit:app
+web gunicorn enjfit:app
