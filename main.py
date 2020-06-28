@@ -5,8 +5,8 @@ from telebot import types
 import os
 from flask import Flask, request
 
-# bot = telebot.TeleBot('1216448489:AAGa0aixNFa6R9AvpuYF0wkTTlTOauHKYzg') # Sergei's token
-bot = telebot.TeleBot('1281817942:AAE24DX-h9ZunkdS4ZGJvSfxUY5rdqzwdgI') # Oleh's token
+bot = telebot.TeleBot('1216448489:AAGa0aixNFa6R9AvpuYF0wkTTlTOauHKYzg') # Sergei's token
+# bot = telebot.TeleBot('1281817942:AAE24DX-h9ZunkdS4ZGJvSfxUY5rdqzwdgI') # Oleh's token
 
 server = Flask(__name__)
 
@@ -31,8 +31,8 @@ def initialize_keyboard(k):
 
 @bot.message_handler(commands=['start'])
 def welcome(message):
-  # sti = open('hello.webp', 'rb')
-  # bot.send_sticker(message.chat.id, sti)
+  sti = open('hello.webp', 'rb')
+  bot.send_sticker(message.chat.id, sti)
   # main keyboard
   markup = initialize_keyboard('main')
   bot.send_message(message.chat.id, "Привет, {0.first_name}!\nЯ - <b>{1.first_name}</b>, бот-помощник Даши".format(message.from_user, bot.get_me()),
@@ -41,10 +41,10 @@ def welcome(message):
 @bot.message_handler(content_types=['text', 'document'])
 def ask_bot(message):
   if message.chat.type == 'private':
-    # if message.text == 'Чек-лист ✅':
-    #   doc = open('check.pdf', 'rb')
-    #   bot.send_document(message.chat.id, doc)
-    if message.text == 'Тренировки 🎯':
+    if message.text == 'Чек-лист ✅':
+      doc = open('check.pdf', 'rb')
+      bot.send_document(message.chat.id, doc)
+    elif message.text == 'Тренировки 🎯':
       # trainings
       markup = initialize_keyboard('trainings')
       bot.send_message(message.chat.id, "Выбери опцию", parse_mode='html', reply_markup=markup)
@@ -98,10 +98,10 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url='https://test-bot-proj.herokuapp.com/' + bot.token)
+    bot.set_webhook(url='https://enjfit.herokuapp.com/' + bot.token)
     return "!", 200
 
 
 if __name__ == '__main__':
     server.debug = True
-    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000))) 
