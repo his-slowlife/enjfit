@@ -24,6 +24,9 @@ def initialize_keyboard(k):
   markup.add(*KEYBOARDS[k])
   return markup
 
+@bot.message_handler(commands=['help'])
+def about(message):
+  bot.(message.chat.id, "Я классный, пока это все, что нужно знать;)")
 
 @bot.message_handler(commands=['start'])
 def welcome(message):
