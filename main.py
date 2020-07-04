@@ -30,7 +30,7 @@ def initialize_keyboard(k):
 
 @bot.message_handler(commands=['help'])
 def about(message):
-  bot.(message.chat.id, "Я классный, пока это все, что нужно знать;)")
+  bot.send_message(message.chat.id, "Я классный, пока это все, что нужно знать;)")
 
 @bot.message_handler(commands=['start'])
 def welcome(message):
